@@ -3,10 +3,12 @@ from django.shortcuts import render
 
 
 def home(request):
+    """ Отображение главное страницы каталога """
     return render(request, 'catalog/home.html')
 
 
 def contacts(request):
+    """ Отображение страницы Контакты и форма обратной связи """
     if request.method == 'POST':
         name = request.POST.get('name')
         phone = request.POST.get('phone')
