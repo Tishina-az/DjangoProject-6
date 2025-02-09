@@ -1,0 +1,70 @@
+[
+{
+    "model": "catalog.category",
+    "pk": 1,
+    "fields": {
+        "category_name": "Виниловые пластинки",
+        "description": "Виниловые пластинки различных жанров"
+    }
+},
+{
+    "model": "catalog.category",
+    "pk": 2,
+    "fields": {
+        "category_name": "Проигрыватели виниловых дисков",
+        "description": "Виниловый проигрыватель — это сложная система, включающая в себя следующие компоненты: Стол проигрывателя, Тонарм, Головка звукоснимателя, Фонокорректор."
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 1,
+    "fields": {
+        "product_name": "Виниловая пластинка Pink Floyd THE WALL (180 Gram/Remastered)",
+        "description": "Виниловая пластинка Pink Floyd THE WALL (180 Gram/Remastered) — это переиздание на тяжёлом 180-грамовом виниле альбома The Wall британской рок-группы Pink Floyd.",
+        "image": "",
+        "category": 1,
+        "price": 5790,
+        "created_at": "2025-02-03T13:08:35.468Z",
+        "updated_at": "2025-02-03T13:08:35.470Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 2,
+    "fields": {
+        "product_name": "Виниловая пластинка Depeche Mode VIOLATOR",
+        "description": "Виниловая пластинка Depeche Mode VIOLATOR — это седьмый студийный альбом британской группы Depeche Mode, выпущенный в 1990 году.",
+        "image": "",
+        "category": 1,
+        "price": 5349,
+        "created_at": "2025-02-03T13:08:42.223Z",
+        "updated_at": "2025-02-03T13:30:12.793Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 3,
+    "fields": {
+        "product_name": "Проигрыватель винила Premiera DELTA Black",
+        "description": "Premiera DELTA - проигрыватель виниловых дисков со встроенным фонокорректором RIAA и функцией Bluetooth подключения, с антирезонансной конструкцией тонарма и встроенным аналого-цифровым преобразователем (ADC), позволяющим «записать» пластинки на ПК в формате WAV 16 бит/44.1 кГц.",
+        "image": "",
+        "category": 2,
+        "price": 29800,
+        "created_at": "2025-02-03T13:08:47.251Z",
+        "updated_at": "2025-02-03T13:08:47.251Z"
+    }
+},
+{
+    "model": "catalog.product",
+    "pk": 4,
+    "fields": {
+        "product_name": "Проигрыватель винила Pro-Ject A2 (2M Red) Black",
+        "description": "Pro-Ject A2 (2M Red) – это проигрыватель с полностью автоматическим управлением. Для начала прослушивания пластинки достаточно нажать всего одну кноп-ку.",
+        "image": "",
+        "category": 2,
+        "price": 140000,
+        "created_at": "2025-02-03T13:08:56.286Z",
+        "updated_at": "2025-02-03T13:08:56.286Z"
+    }
+}
+]

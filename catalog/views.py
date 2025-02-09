@@ -1,9 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+from catalog.models import Product
+
 
 def home(request):
     """ Отображение главное страницы каталога """
+    top_products = Product.objects.order_by('-created_at')[:5]
+    for product in top_products:
+        print(product)
     return render(request, 'catalog/home.html')
 
 
