@@ -9,7 +9,11 @@ def home(request):
     top_products = Product.objects.order_by('-created_at')[:5]
     for product in top_products:
         print(product)
-    return render(request, 'catalog/home.html')
+    products = Product.objects.all()
+    context = {
+        'products': products
+    }
+    return render(request, 'catalog/home.html', context)
 
 
 def contacts(request):
