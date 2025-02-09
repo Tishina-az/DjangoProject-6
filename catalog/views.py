@@ -16,6 +16,15 @@ def home(request):
     return render(request, 'catalog/home.html', context)
 
 
+def product_detail(request, pk):
+    """ Отображение страницы товара """
+    product = Product.objects.get(pk=pk)
+    context = {
+        'product': product
+    }
+    return render(request, 'catalog/product.html', context)
+
+
 def contacts(request):
     """ Отображение страницы Контакты и форма обратной связи """
     if request.method == 'POST':
