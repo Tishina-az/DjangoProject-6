@@ -5,20 +5,24 @@
 {% block content %}
 <div class="row text-start">
     <div class="col-lg-9 col-md-6 col-sm-12">
-        <div class="card mb-4 box-shadow">
+        <div class="card mb-2 box-shadow">
             <div class="card-body">
                 <table class="table table-striped">
                     <tr>
-                        <td class="w-25">Страна</td>
-                        <td>USA</td>
+                        <td class="text-end w-25">Страна:</td>
+                        <td>{{ contact.country }}</td>
                     </tr>
                     <tr>
-                        <td class="w-25">ИНН</td>
-                        <td>91-1144442</td>
+                        <td class="text-end w-25">Адрес:</td>
+                        <td>{{ contact.address }}</td>
                     </tr>
                     <tr>
-                        <td class="w-25">Адрес</td>
-                        <td>Redmond,WA,98052-6399</td>
+                        <td class="text-end w-25">Телефон:</td>
+                        <td>{{ contact.phone }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-end w-25">Адрес электронной почты:</td>
+                        <td>{{ contact.email }}</td>
                     </tr>
                 </table>
             </div>

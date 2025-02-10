@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from catalog.models import Product
+from catalog.models import Product, Contacts
 
 
 def home(request):
@@ -33,4 +33,8 @@ def contacts(request):
         message = request.POST.get('message')
         print(f'Поступило обращение от {name}, номер телефона:{phone}, следующего содержания: {message}.')
         return HttpResponse(f'Спасибо {name}! Ваше сообщение получено.')
-    return render(request, 'catalog/contacts.html')
+    contact = Contacts.objects.first()
+    context = {
+        'contact': contact
+    }
+    return render(request, 'catalog/contacts.html', context=context)
