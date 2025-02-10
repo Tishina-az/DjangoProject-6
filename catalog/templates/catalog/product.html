@@ -1,77 +1,26 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Интернет-магазин{% endblock %}</title>
-    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
-</head>
-<body>
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-    <h5 class="my-0 mr-md-auto font-weight-normal">T-Store</h5>
-    <nav class="ms-5">
-        <a class="p-2 btn btn-outline-primary" href="/">Главная</a>
-        <a class="p-2 btn btn-outline-primary" href="/contacts/">Контакты</a>
-    </nav>
-</div>
+{% extends 'catalog/base.html' %}
 
-<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-    <h1 class="display-4">T-Store</h1>
-    <p class="lead">T-Store - это ламповый интернет-магазин виниловых пластинок и техники для их прослушивания</p>
-</div>
+{% block title %}{{ product.product_name|truncatechars:25 }}{% endblock %}
 
-<div class="container">
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
-        <div class="col-md-6 p-lg-5 mx-auto my-5">
-            <h1 class="display-3 fw-bold">{{ product.product_name }}</h1>
-            <img src="{{ product.image.url }}" class="card-img-top mt-5 mb-5" alt="...">
-            <h3 class="fw-normal text-muted mb-3">{{ product.description }}</h3>
-            <h2 class="fw-bold mt-5 mb-3">{{ product.price }} руб./шт.</h2>
-            <div class="d-flex gap-3 justify-content-center lead fw-normal">
-                <a class="icon-link" href="/">
-                    На главную
-                    <svg class="bi"><use xlink:href="#chevron-right"/></svg>
-                </a>
-                <a class="icon-link" href="#">
-                    Купить
-                    <svg class="bi"><use xlink:href="#chevron-right"/></svg>
-                </a>
-            </div>
+{% block content %}
+<div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
+    <div class="col-md-6 p-lg-5 mx-auto my-5">
+        <h1 class="display-3 fw-bold">{{ product.product_name }}</h1>
+        <img src="{{ product.image.url }}" class="card-img-top mt-5 mb-5" alt="...">
+        <h3 class="fw-normal text-muted mb-3">{{ product.description }}</h3>
+        <h2 class="fw-bold mt-5 mb-3">{{ product.price }} руб./шт.</h2>
+        <div class="d-flex gap-3 justify-content-center lead fw-normal">
+            <a class="icon-link" href="/">
+                На главную
+                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+            </a>
+            <a class="icon-link" href="#">
+                Купить
+                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+            </a>
         </div>
-        <div class="product-device shadow-sm d-none d-md-block"></div>
-        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
     </div>
-    <footer class="pt-4 my-md-5 pt-md-5 border-top">
-        <div class="row">
-            <div class="col-12 col-md">
-                T-Store
-                <small class="d-block mb-3 text-muted">&copy; 2025</small>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Категории</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Виниловые пластинки</a></li>
-                    <li><a class="text-muted" href="#">Проигрыватели виниловых дисков</a></li>
-                    <li><a class="text-muted" href="#">Средства по уходу и хранению</a></li>
-                    <li><a class="text-muted" href="#">Аксессуары</a></li>
-                    <li><a class="text-muted" href="#">Мебель для проигрывателей</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5>Дополнительно</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="#">Мы пишем</a></li>
-                </ul>
-            </div>
-            <div class="col-6 col-md">
-                <h5>О нас</h5>
-                <ul class="list-unstyled text-small">
-                    <li><a class="text-muted" href="/contacts/">Контакты</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
+    <div class="product-device shadow-sm d-none d-md-block"></div>
+    <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
 </div>
-<!-- Подключите статичеcкие файлы со скриптами Bootstrap -->
-</body>
-</html>
+{% endblock %}
