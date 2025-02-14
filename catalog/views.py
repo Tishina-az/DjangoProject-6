@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from catalog.models import Product
+from catalog.models import Product, Contacts
 
 
 def home(request):
@@ -9,7 +9,20 @@ def home(request):
     top_products = Product.objects.order_by('-created_at')[:5]
     for product in top_products:
         print(product)
-    return render(request, 'catalog/home.html')
+    products = Product.objects.all()
+    context = {
+        'products': products
+    }
+    return render(request, 'catalog/home.html', context)
+
+
+def product_detail(request, pk):
+    """ Отображение страницы товара """
+    product = Product.objects.get(pk=pk)
+    context = {
+        'product': product
+    }
+    return render(request, 'catalog/product.html', context)
 
 
 def contacts(request):
@@ -20,4 +33,8 @@ def contacts(request):
         message = request.POST.get('message')
         print(f'Поступило обращение от {name}, номер телефона:{phone}, следующего содержания: {message}.')
         return HttpResponse(f'Спасибо {name}! Ваше сообщение получено.')
-    return render(request, 'catalog/contacts.html')
+    contact = Contacts.objects.first()
+    context = {
+        'contact': contact
+    }
+    return render(request, 'catalog/contacts.html', context=context)
