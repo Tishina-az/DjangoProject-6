@@ -10,7 +10,7 @@
         <h3 class="fw-normal text-muted mb-3">{{ product.description }}</h3>
         <h2 class="fw-bold mt-5 mb-3">{{ product.price }} руб./шт.</h2>
         <div class="d-flex gap-3 justify-content-center lead fw-normal">
-            <a class="icon-link" href="/">
+            <a class="icon-link" href="{% url 'catalog:products_list' %}">
                 На главную
                 <svg class="bi"><use xlink:href="#chevron-right"/></svg>
             </a>
