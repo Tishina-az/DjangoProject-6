@@ -1,28 +1,23 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
 from catalog.models import Product, Contacts
 
 
-def home(request):
-    """ Отображение главное страницы каталога """
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/products_list.html'
+    context_object_name = 'products'
     top_products = Product.objects.order_by('-created_at')[:5]
     for product in top_products:
         print(product)
-    products = Product.objects.all()
-    context = {
-        'products': products
-    }
-    return render(request, 'catalog/home.html', context)
 
 
-def product_detail(request, pk):
-    """ Отображение страницы товара """
-    product = Product.objects.get(pk=pk)
-    context = {
-        'product': product
-    }
-    return render(request, 'catalog/product.html', context)
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
 
 
 def contacts(request):
