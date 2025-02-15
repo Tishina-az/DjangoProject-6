@@ -3,6 +3,9 @@
 {% block title %}Главная страница{% endblock %}
 
 {% block content %}
+<nav class="mb-5 text-center">
+    <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:product_create' %}">Добавить продукт</a>
+</nav>
 <div class="row text-center">
     {% for product in products %}
         <div class="col-3">
