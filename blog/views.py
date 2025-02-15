@@ -9,6 +9,9 @@ class PostListView(ListView):
     template_name = 'blog/posts_list.html'
     context_object_name = 'posts'
 
+    def get_queryset(self):
+        return Post.objects.filter(publication_at=True)
+
 
 class PostCreateView(CreateView):
     model = Post
@@ -23,13 +26,16 @@ class PostDetailView(DetailView):
     def get_object(self, queryset=None):
         obj = super().get_object(queryset)
         obj.number_of_views += 1
+        obj.save()
         return obj
 
 
 class PostUpdateView(UpdateView):
     model = Post
     fields = ['title', 'content', 'preview', 'publication_at']
-    success_url = reverse_lazy('blog:posts_list')
+
+    def get_success_url(self):
+        return reverse_lazy('blog:post_detail', kwargs={'pk': self.object.pk})
 
 
 class PostDeleteView(DeleteView):
