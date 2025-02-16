@@ -10,9 +10,6 @@ class ProductListView(ListView):
     model = Product
     template_name = 'catalog/products_list.html'
     context_object_name = 'products'
-    top_products = Product.objects.order_by('-created_at')[:5]
-    for product in top_products:
-        print(product)
 
 
 class ProductDetailView(DetailView):
