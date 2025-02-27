@@ -3,6 +3,7 @@ import logging
 from django import forms
 from django.core.exceptions import ValidationError
 from django.db.models import BooleanField
+from django.utils.safestring import mark_safe
 
 from catalog.models import Product
 
@@ -25,6 +26,22 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
         exclude = ['created_at', 'updated_at']
+
+    def __init__(self, *args, **kwargs):
+        super(ProductForm, self).__init__(*args, **kwargs)
+
+        self.fields['product_name'].widget.attrs.update({
+            'placeholder': 'Введите название продукта'
+        })
+
+        self.fields['description'].widget.attrs.update({
+            'placeholder': 'Добавьте описание продукта...'
+        })
+
+        self.fields['image'].help_text = mark_safe(
+            '<small id="photoHelp" class="form-text text-muted">Загрузите изображение в формате JPEG или PNG. Размер не должен превышать 5 МБ.</small>')
+
+        self.fields['category'].empty_label = 'Выберите категорию...'
 
     def clean_product_name(self):
         product_name = self.cleaned_data.get('product_name')
