@@ -28,7 +28,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     def clean_product_name(self):
         product_name = self.cleaned_data.get('product_name')
-        logger.debug(f'Очищенное название продукта: {product_name}')
+        logger.debug(f'Валидное название продукта: {product_name}')
         if product_name:
             for word in FORBIDDEN_WORDS:
                 if word in product_name.lower():
@@ -41,7 +41,7 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
 
     def clean_description(self):
         description = self.cleaned_data.get('description')
-        logger.debug(f'Очищенное описание продукта: {description}')
+        logger.debug(f'Валидное описание продукта: {description}')
         if description:
             for word in FORBIDDEN_WORDS:
                 if word in description.lower():
@@ -51,6 +51,18 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
             logger.error('Описание продукта отсутствует или пустое')
             raise ValidationError('Описание продукта обязательно для заполнения.')
         return description
+
+    def clean_price(self):
+        price = self.cleaned_data.get('price')
+        logger.debug(f'Валидная стоимость продукта: {price}')
+        if price:
+            if price < 0:
+                logger.error('Введена отрицательная стоимость продукта')
+                raise ValidationError('Стоимость продукта не может быть меньше нуля')
+        else:
+            logger.debug('Стоимость продукта отсутствует')
+            raise ValidationError('Стоимость продукта обязательна для заполнения.')
+        return price
 
     def clean(self):
         cleaned_data = super().clean()
