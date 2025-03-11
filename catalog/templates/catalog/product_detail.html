@@ -4,20 +4,28 @@
 
 {% block content %}
 <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-body-tertiary">
-    <div class="col-md-6 p-lg-5 mx-auto my-5">
+    <div class="col-md-9 p-lg-5 mx-auto my-5">
         <h1 class="display-3 fw-bold">{{ product.product_name }}</h1>
         <img src="{{ product.image.url }}" class="card-img-top mt-5 mb-5" alt="...">
         <h3 class="fw-normal text-muted mb-3">{{ product.description }}</h3>
         <h2 class="fw-bold mt-5 mb-3">{{ product.price }} руб./шт.</h2>
-        <div class="d-flex gap-3 justify-content-center lead fw-normal">
-            <a class="icon-link" href="{% url 'catalog:products_list' %}">
-                На главную
+        <div class="d-flex gap-3 justify-content-center lead fw-normal mt-5">
+            <a class="icon-link text-primary" href="{% url 'catalog:product_create' %}">
+                Добавить продукт
                 <svg class="bi"><use xlink:href="#chevron-right"/></svg>
             </a>
-            <a class="icon-link" href="#">
-                Купить
+            <a class="icon-link text-warning" href="{% url 'catalog:product_update' product.pk %}">
+                Редактировать
                 <svg class="bi"><use xlink:href="#chevron-right"/></svg>
             </a>
+            <a class="icon-link text-danger" href="{% url 'catalog:product_delete' product.pk %}">
+                Удалить
+                <svg class="bi"><use xlink:href="#chevron-right"/></svg>
+            </a>
+        </div>
+        <div class="d-flex gap-3 justify-content-center lead fw-normal mt-5">
+            <a href="{% url 'catalog:products_list' %}" type="button" class="btn btn-outline-primary btn-lg">На главную</a>
+            <a href="#" type="button" class="btn btn-outline-primary btn-lg">Купить</a>
         </div>
     </div>
     <div class="product-device shadow-sm d-none d-md-block"></div>
