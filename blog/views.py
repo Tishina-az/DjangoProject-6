@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 
 from blog.models import Post
-from config.settings import EMAIL_HOST_USER
+from config.settings import EMAIL_HOST_USER, DEFAULT_FROM_EMAIL
 
 
 class PostListView(ListView):
@@ -32,9 +32,9 @@ class PostDetailView(DetailView):
         if obj.number_of_views == 100:
             subject = f"100 просмотров {obj.title}!"
             massage = f"Поздравляем! Статья: '{obj.title}' - достигла 100 просмотров."
-            from_email = EMAIL_HOST_USER
-            to_email = [EMAIL_HOST_USER]
-            send_mail(subject, massage, from_email, to_email, fail_silently=False)
+            from_email = DEFAULT_FROM_EMAIL
+            to_email = [EMAIL_HOST_USER,]
+            send_mail(subject, massage, from_email, to_email)
         return obj
 
 
