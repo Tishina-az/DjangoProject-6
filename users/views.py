@@ -1,6 +1,7 @@
 import secrets
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.core.mail import EmailMultiAlternatives
 from django.shortcuts import get_object_or_404, redirect
 from django.template.loader import render_to_string
@@ -9,7 +10,7 @@ from django.utils.html import strip_tags
 from django.views.generic import CreateView, UpdateView
 
 from config.settings import DEFAULT_FROM_EMAIL
-from users.forms import CustomUserCreationForm, CustomUserChangeForm
+from users.forms import CustomUserCreationForm, CustomUserChangeForm, CustomUserLoginForm
 from users.models import CustomUser
 
 
@@ -77,3 +78,9 @@ class CustomUserUpdate(LoginRequiredMixin, UpdateView):
     template_name = 'users/register.html'
     form_class = CustomUserChangeForm
     success_url = reverse_lazy('catalog:products_list')
+
+
+class CustomLoginView(LoginView):
+    template_name = 'users/login.html'
+    form_class = CustomUserLoginForm
+    success_url = reverse_lazy('home')

@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.db.models import BooleanField
 from django.utils.safestring import mark_safe
 
@@ -85,3 +85,8 @@ class CustomUserChangeForm(StyleFormMixin, forms.ModelForm):
         if phone_number and not phone_number.isdigit():
             raise forms.ValidationError('Номер телефона может состоять только из цифр.')
         return phone_number
+
+
+class CustomUserLoginForm(StyleFormMixin, AuthenticationForm):
+    password = forms.CharField(label='Пароль', widget=forms.PasswordInput)
+
