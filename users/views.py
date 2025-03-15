@@ -64,7 +64,7 @@ class RegisterView(CreateView):
         return super().form_valid(form)
 
 
-def email_verification(token):
+def email_verification(request, token):
     user = get_object_or_404(CustomUser, token=token)
     user.is_active = True
     user.save()
