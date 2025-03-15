@@ -55,6 +55,33 @@ class CustomUserCreationForm(StyleFormMixin, UserCreationForm):
 
 
 class CustomUserChangeForm(StyleFormMixin, forms.ModelForm):
+    username = forms.CharField(label='Никнейм')
+    first_name = forms.CharField(label='Имя')
+    last_name = forms.CharField(label='Фамилия')
+
     class Meta:
         model = CustomUser
         fields = ['username', 'first_name', 'last_name', 'phone_number', 'avatar', 'country']
+
+    def __init__(self, *args, **kwargs):
+        super(CustomUserChangeForm, self).__init__(*args, **kwargs)
+
+        self.fields['first_name'].widget.attrs.update({
+            'placeholder': 'Иван'
+        })
+
+        self.fields['last_name'].widget.attrs.update({
+            'placeholder': 'Иванов'
+        })
+
+        self.fields['username'].help_text = mark_safe(
+            '<small id="photoHelp" class="form-text text-muted">Обязательное поле. Не более 150 символов, содержащих только буквы, цифры и символы @/./+/-/_ .</small>')
+
+        self.fields['avatar'].help_text = mark_safe(
+            '<small id="photoHelp" class="form-text text-muted">Загрузите изображение в формате JPEG или PNG. Размер не должен превышать 5 МБ.</small>')
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+        if phone_number and not phone_number.isdigit():
+            raise forms.ValidationError('Номер телефона может состоять только из цифр.')
+        return phone_number
