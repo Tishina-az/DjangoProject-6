@@ -52,3 +52,9 @@ class CustomUserCreationForm(StyleFormMixin, UserCreationForm):
         if phone_number and not phone_number.isdigit():
             raise forms.ValidationError('Номер телефона может состоять только из цифр.')
         return phone_number
+
+
+class CustomUserChangeForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'last_name', 'phone_number', 'avatar', 'country']

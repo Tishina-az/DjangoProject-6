@@ -1,7 +1,56 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-    <h5 class="my-0 mr-md-auto font-weight-normal">T-Blog</h5>
-    <nav class="ms-5">
-        <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:products_list' %}">В магазин</a>
-        <a class="p-2 btn btn-outline-primary" href="{% url 'catalog:contacts' %}">Контакты</a>
-    </nav>
-</div>
+<nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'catalog:products_list' %}">T-Blog</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Переключатель навигации">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'catalog:products_list' %}">В магазин</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'catalog:contacts' %}">Контакты</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        {{ user.username }}
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Личный кабинет</a></li>
+                        <li><a class="dropdown-item" href="#">Заказы</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+                        <li>
+                            <form method="post" action="{% url 'users:logout' %}" style="display: inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="dropdown-item">Выйти</button>
+                            </form>
+                        </li>
+                    </ul>
+                </li>
+                {% else %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Вход/Регистрация
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'users:login' %}">Войти в аккаунт</a></li>
+                        <li><a class="dropdown-item" href="{% url 'users:register' %}">Зарегистрироваться</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            </ul>
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск">
+                <button class="btn btn-outline-success" type="submit">Поиск</button>
+            </form>
+        </div>
+    </div>
+</nav>
