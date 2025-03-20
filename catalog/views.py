@@ -41,11 +41,24 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('catalog:product_detail', kwargs={'pk': self.object.pk})
 
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
 
-class ProductDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
+        if obj.owner != self.request.user:
+            raise PermissionDenied('У вас не достаточно прав для редактирования данного продукта.')
+        return obj
+
+
+class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
-    permission_required = 'catalog.delete_product'
     success_url = reverse_lazy('catalog:products_list')
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+
+        if obj.owner != self.request.user and not self.request.user.groups.filter(name='Модератор продуктов').exists():
+            raise PermissionDenied('У вас не достаточно прав для удаления данного продукта.')
+        return obj
 
 
 class UnpublishProductView(LoginRequiredMixin, View):
