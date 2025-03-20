@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import CustomUser
+
 
 class Category(models.Model):
     category_name = models.CharField(max_length=50, verbose_name='Наименование категории')
@@ -24,6 +26,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True, verbose_name='Дата последнего изменения')
 
     is_publication = models.BooleanField(default=False, verbose_name='Статус публикации')
+    owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='products', verbose_name='Владелец')
 
     def __str__(self):
         return f'{self.product_name} - {self.price}'
