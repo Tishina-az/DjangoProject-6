@@ -16,25 +16,34 @@
                     <use xlink:href="#chevron-right"/>
                 </svg>
             </a>
+            {% if product.owner == request.user %}
             <a class="icon-link text-warning" href="{% url 'catalog:product_update' product.pk %}">
                 Редактировать
                 <svg class="bi">
                     <use xlink:href="#chevron-right"/>
                 </svg>
             </a>
+            {% endif %}
+            {% if perms.catalog.can_unpublish_product %}
+            <form class="d-inline" action="{% url 'catalog:product_unpublished' product.pk %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="icon-link text-warning border-0 bg-transparent p-0">
+                    Снять с публикации
+                    <svg class="bi">
+                        <use xlink:href="#chevron-right"/>
+                    </svg>
+                </button>
+            </form>
+            {% endif %}
+            {% if product.owner == request.user or perms.catalog.delete_product %}
             <a class="icon-link text-danger" href="{% url 'catalog:product_delete' product.pk %}">
                 Удалить
                 <svg class="bi">
                     <use xlink:href="#chevron-right"/>
                 </svg>
             </a>
+            {% endif %}
         </div>
-        {% if perms.catalog.can_unpublish_product %}
-            <form class="mt-3" action="{% url 'catalog:product_unpublished' product.pk %}" method="post">
-                {% csrf_token %}
-                <button type="submit">Снять с публикации</button>
-            </form>
-        {% endif %}
         <div class="d-flex gap-3 justify-content-center lead fw-normal mt-5">
             <a href="{% url 'catalog:products_list' %}" type="button" class="btn btn-outline-primary btn-lg">На
                 главную</a>
