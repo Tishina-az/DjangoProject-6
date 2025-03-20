@@ -22,7 +22,7 @@ class StyleFormMixin:
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
-        exclude = ['created_at', 'updated_at']
+        exclude = ['created_at', 'updated_at', 'is_publication', 'owner']
 
     def __init__(self, *args, **kwargs):
         super(ProductForm, self).__init__(*args, **kwargs)
