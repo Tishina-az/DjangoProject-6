@@ -9,20 +9,22 @@
 <div class="container">
     <div class="row text-center">
         {% for product in products %}
-            <div class="col-3">
-                <div class="card mb-4">
-                    <img src="{{ product.image.url }}" class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ product.product_name|truncatechars:48 }}</h5>
-                        <p class="card-text">{{ product.description|truncatechars:100 }}</p>
-                        <h5 class="card-text mb-3">{{ product.price }} руб.</h5>
-                        <div class="btn-group btn-group-lg btn-block" role="group" aria-label="Basic example">
-                            <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-outline-primary">Просмотр</a>
-                            <button type="button" class="btn btn-outline-primary">Купить</button>
+            {% if product.is_publication == True %}
+                <div class="col-3">
+                    <div class="card mb-4">
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.product_name|truncatechars:48 }}</h5>
+                            <p class="card-text">{{ product.description|truncatechars:100 }}</p>
+                            <h5 class="card-text mb-3">{{ product.price }} руб.</h5>
+                            <div class="btn-group btn-group-lg btn-block" role="group" aria-label="Basic example">
+                                <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-outline-primary">Просмотр</a>
+                                <button type="button" class="btn btn-outline-primary">Купить</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         {% endfor %}
     </div>
     <!-- Пагинация -->
