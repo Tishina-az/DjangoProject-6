@@ -19,6 +19,9 @@ class ProductListView(ListView):
     context_object_name = 'products'
     paginate_by = 8
 
+    def get_queryset(self):
+        return ProductService.get_products_list()
+
 
 class ProductsByCategoryView(LoginRequiredMixin, DetailView):
     model = Category

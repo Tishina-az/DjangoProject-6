@@ -1,6 +1,6 @@
 {% extends 'catalog/base.html' %}
 
-{% block title %}Главная страница{% endblock %}
+{% block title %}{{ products_by_category.0.category.category_name }}{% endblock %}
 
 {% block content %}
 <nav class="mb-5 text-center">
