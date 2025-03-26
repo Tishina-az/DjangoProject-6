@@ -3,11 +3,14 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 from django.views import View
+from django.views.decorators.cache import cache_page
 from django.views.generic import ListView, DetailView, CreateView, TemplateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm
-from catalog.models import Product, Contacts
+from catalog.models import Product, Contacts, Category
+from catalog.services import ProductService
 
 
 class ProductListView(ListView):
@@ -16,7 +19,23 @@ class ProductListView(ListView):
     context_object_name = 'products'
     paginate_by = 8
 
+    def get_queryset(self):
+        return ProductService.get_products_list()
 
+
+class ProductsByCategoryView(LoginRequiredMixin, DetailView):
+    model = Category
+    template_name = 'catalog/products_by_category.html'
+    paginate_by = 8
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        category_id = self.object.id
+        context['products_by_category'] = ProductService.get_products_by_category(category_id)
+        return context
+
+
+@method_decorator(cache_page(60 * 15), name='dispatch')
 class ProductDetailView(LoginRequiredMixin, DetailView):
     model = Product
     context_object_name = 'product'
